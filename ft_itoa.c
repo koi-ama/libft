@@ -28,7 +28,14 @@ char	*ft_itoa(int n) {
     char *str;
 
     if (!n)
-	    return (NULL);
+    {
+	    str = (char *)malloc(1 + 1);
+	    if(!str)
+		    return (NULL);
+		str[2] = '\0';
+	    str[0] = '0';
+	    return (str);
+	}
     length = get_num_length(n);
     str  = (char *)malloc(length + 1);
     if (str == NULL)
