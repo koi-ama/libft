@@ -6,21 +6,10 @@
 /*   By: kamakasu <kamakasu@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:39:43 by kamakasu          #+#    #+#             */
-/*   Updated: 2024/05/05 14:34:10 by kamakasu         ###   ########.fr       */
+/*   Updated: 2024/06/23 17:53:02 by kamakasu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-
-int	anydigit(const char *str)
-{
-	while (*str)
-	{
-		if (ft_isdigit((unsigned char)*str))
-			return (1);
-		str++;
-	}
-	return (0);
-}
 
 int	ft_atoi(const char *str)
 {
@@ -39,21 +28,16 @@ int	ft_atoi(const char *str)
 			sign = -1;
 		str++;
 	}
-	if (!anydigit(str))
-		return (0);
 	while (*str && '0' <= *str && *str <= '9')
 	{
+		if (ft_isdigit(*str) && ((LONG_MIN + (*str - '0')) / 10 > -result)
+			&& (sign < 0))
+			return ((int)LONG_MIN);
+		else if (ft_isdigit(*str) && ((LONG_MAX - (*str - '0')) / 10 < result)
+			&& (sign > 0))
+			return ((int)LONG_MAX);
 		result = result * 10 + (*str - '0');
 		str++;
 	}
 	return (result * sign);
 }
-
-//int	main(int ac, char **av)
-//{
-//	const char	*str;
-//
-//	(void)ac;
-//	str = (const char*)av[1];
-//	return (ft_atoi(str));
-//}

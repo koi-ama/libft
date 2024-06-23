@@ -1,68 +1,48 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kamakasu <kamakasu@student.42.jp>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 11:45:40 by kamakasu          #+#    #+#             */
-/*   Updated: 2024/04/24 14:40:43 by kamakasu         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 #include "libft.h"
 
-static int	get_num_length(int n) {
-    int length = 0;
-    if (n <= 0) {
-        length = 1;
+int count_digits(int n)
+{
+    int     len;
+    int     tmp;
+    
+    len = 0;
+    if (n <= 0)
+        len++;
+    tmp = n;
+    while (tmp)
+    {
+        len++;
+        tmp /= 10;
     }
-    while (n != 0) {
-        n /= 10;
-        length++;
-    }
-    return length;
+    return (len);
 }
 
-char	*ft_itoa(int n) {
-    int length;
-    char *str;
+char    *ft_itoa(int n)
+{
+    int     len;
+    char    *str;
+    int     digit;
 
-    if (!n)
+    len = count_digits(n);
+    str = (char *)malloc(len + 1);
+    if (!str)
+        return (NULL);
+    str[len] = '\0';
+    if (n < 0)
+        str[0] = '-';
+    else if (n == 0)
     {
-	    str = (char *)malloc(1 + 1);
-	    if(!str)
-		    return (NULL);
-		str[2] = '\0';
-	    str[0] = '0';
-	    return (str);
-	}
-    length = get_num_length(n);
-    str  = (char *)malloc(length + 1);
-    if (str == NULL)
-	    return (NULL);
-    str[length] = '\0';
-    int is_negative = 0;
-    if (n < 0) {
-        is_negative = 1;
-    }
-
-    if (n == 0) {
         str[0] = '0';
-    } else {
-        if (n == -2147483648) {
-            str[--length] = '8';
-            n /= 10;
-        }
-        if (is_negative && n != 0) {
-            n = -n;
-        }
-        while (n != 0) {
-            str[--length] = (n % 10) + '0';
-            n /= 10;
-        }
-        if (is_negative) {
-            str[0] = '-';
-        }
+        return (str);
     }
-    return str;
+    len--;
+    while(n)
+    {
+        digit = n % 10;
+	if (n < 0)
+		digit = -digit;
+        str[len--] = '0' + digit;
+        n /= 10;
+    }
+    return (str);
 }
