@@ -10,11 +10,17 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strle
 	ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
 	ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
 	ft_putendl_fd.c ft_putnbr_fd.c \
-	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
+	
+B_SRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 	ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 	ft_lstmap.c
 
 OBJS = $(SRCS:.c=.o)
+
+ifdef WITH_BONUS
+	OBJS += $(B_SRCS:.c=.o)
+endif
+
 INCLUDES = .
 
 .c.o:
@@ -25,12 +31,15 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
+bonus:
+	@make WITH_BONUS=1
+
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(B_SRCS:.c=.o)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
