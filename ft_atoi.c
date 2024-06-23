@@ -6,15 +6,15 @@
 /*   By: kamakasu <kamakasu@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 15:39:43 by kamakasu          #+#    #+#             */
-/*   Updated: 2024/06/23 17:53:02 by kamakasu         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:04:26 by kamakasu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 int	ft_atoi(const char *str)
 {
-	int	result;
-	int	sign;
+	long long	result;
+	int		sign;
 
 	result = 0;
 	sign = 1;
